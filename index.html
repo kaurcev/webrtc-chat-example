@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord-подобный Чат</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="server-sidebar">
+        <div class="server-icon">
+            <i class="fas fa-home"></i>
+        </div>
+        <div class="server-divider"></div>
+        <a class="server-icon" href="//kaurcev.t.me/" target="_blank">
+            <i class="fas fa-pen"></i>
+        </a>
+    </div>
+
+    <div class="channels-sidebar">
+        <div class="server-header">Сервер Чатика</div>
+        <div class="channels-list">
+            <div class="channel-category">ТЕКСТОВЫЕ КАНАЛЫ</div>
+            <div class="channel-item active">
+                <i class="fas fa-hashtag"></i>
+                <span>переписка</span>
+            </div>
+
+            <div class="channel-category" style="margin-top: 32px;">СИСТЕМА</div>
+            <div class="channel-item" id="connectionChannel">
+                <i class="fas fa-wifi"></i>
+                <span>подключение</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-area">
+        <div class="chat-header">
+            <i class="fas fa-hashtag"></i>
+            <span>переписка</span>
+        </div>
+
+        <div class="connection-panel" id="connectionPanel">
+            <h3>Подключение WebRTC</h3>
+            <div class="status" id="status">Статус: Не подключено</div>
+            <div class="connection-buttons">
+                <button class="btn btn-primary" onclick="createOfferAndDownload()">
+                    <i class="fas fa-download"></i> Создать оффер
+                </button>
+                <button class="btn btn-secondary" onclick="importKaeFile()">
+                    <i class="fas fa-upload"></i> Импортировать файл
+                </button>
+                <input type="file" id="fileInput" accept=".kae" style="display: none;">
+            </div>
+        </div>
+
+        <div class="chat-messages" id="messages">
+            <div class="load-more" id="loadMore" onclick="loadMoreMessages()">
+                <i class="fas fa-chevron-up"></i> Загрузить предыдущие сообщения
+            </div>
+            <div class="message">
+                <div class="message-avatar">D</div>
+                <div class="message-content">
+                    <div class="message-header">
+                        <span class="message-author">Discord</span>
+                        <span class="message-time">Сегодня в 00:00</span>
+                    </div>
+                    <div class="message-text">
+                        Добро пожаловать в чат! Для начала работы установите соединение через панель подключения.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-container hidden" id="chatInputContainer">
+            <textarea class="message-input" id="messageInput"
+                placeholder="Написать сообщение в #общий (Shift+Enter для новой строки)" rows="1"></textarea>
+            <div class="chat-actions">
+                <div class="action-buttons">
+                    <button class="action-button" onclick="document.getElementById('fileInputAll').click()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="action-button" onclick="document.getElementById('fileInputImage').click()">
+                        <i class="fas fa-image"></i>
+                    </button>
+                    <button class="action-button" onclick="clearChat()" title="Очистить чат">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div>
+                    <span class="time-estimate" id="timeEstimate"></span>
+                    <button class="action-button" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInputAll" style="display: none;">
+    <input type="file" id="fileInputImage" accept="image/*" style="display: none;">
+    <canvas id="photoCanvas" style="display:none;"></canvas>
+
+    <script src="./code.js"></script>
+</body>
+
+</html>
